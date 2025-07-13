@@ -103,7 +103,10 @@ const Onboarding = () => {
         >
           <ThemedText style={styles.buttonText}>Create an account</ThemedText>
         </Pressable>
-        <Pressable style={[styles.button, styles.loginButton]}>
+        <Pressable
+          style={[styles.button, styles.loginButton]}
+          onPress={() => router.push("/(auth)/login")}
+        >
           <ThemedText style={styles.loginButtonText}>Login</ThemedText>
         </Pressable>
       </View>

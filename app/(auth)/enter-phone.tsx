@@ -1,13 +1,23 @@
-import { StyleSheet, View, TextInput, Pressable, Image } from "react-native";
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  Pressable,
+  Image,
+  Text,
+} from "react-native";
 import React, { useState } from "react";
 import { ThemedText } from "@/components/ThemedText";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router, useLocalSearchParams } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
+import { useCountryCodeSheetStore } from "@/stores/useCountryCodeSheetStore";
+import SelectCountryCodeSheet from "@/components/SelectCountryCodeSheet";
 
 const EnterPhone = () => {
   const { firstName, lastName } = useLocalSearchParams();
   const [phone, setPhone] = useState("");
+  const { selectedCountry, openSheet } = useCountryCodeSheetStore();
 
   const handleNext = () => {
     if (phone) {
@@ -35,12 +45,10 @@ const EnterPhone = () => {
         <View style={styles.form}>
           <ThemedText style={styles.label}>Phone Number</ThemedText>
           <View style={styles.phoneInputContainer}>
-            <Pressable style={styles.countryCode}>
-              <Image
-                source={require("@/assets/flags/bangladesh.svg")}
-                style={styles.flag}
-              />
-              <ThemedText>+234</ThemedText>
+            <Pressable style={styles.countryCode} onPress={openSheet}>
+              {/* You can use a flag image if you have it, otherwise show code */}
+              {/* <Image source={require(`@/assets/flags/${selectedCountry.code.toLowerCase()}.svg`)} style={styles.flag} /> */}
+              <Text style={{ fontSize: 16 }}>{selectedCountry.dial_code}</Text>
               <Ionicons name="chevron-down" size={20} color="black" />
             </Pressable>
             <TextInput
@@ -68,6 +76,7 @@ const EnterPhone = () => {
           <ThemedText style={styles.buttonText}>Next</ThemedText>
         </Pressable>
       </View>
+      <SelectCountryCodeSheet />
     </SafeAreaView>
   );
 };
