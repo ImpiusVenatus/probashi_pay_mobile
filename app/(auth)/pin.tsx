@@ -1,6 +1,12 @@
-import { StyleSheet, View, TextInput, Pressable, Image } from "react-native";
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  Pressable,
+  Image,
+  Text,
+} from "react-native";
 import React, { useRef, useState } from "react";
-import { ThemedText } from "@/components/ThemedText";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
@@ -104,18 +110,18 @@ const Pin = () => {
           style={styles.icon}
           resizeMode="contain"
         />
-        <ThemedText style={styles.title}>
+        <Text style={styles.title}>
           {step === "create" ? "Create PIN" : "Confirm PIN"}
-        </ThemedText>
-        <ThemedText style={styles.subtitle}>
+        </Text>
+        <Text style={styles.subtitle}>
           Your account has been created. We need to secure your account against
           fraud or theft
-        </ThemedText>
+        </Text>
         {renderPinInputs(
           step === "create" ? pin : confirmPin,
           step === "create" ? handlePinChange : handleConfirmPinChange
         )}
-        {!!error && <ThemedText style={styles.error}>{error}</ThemedText>}
+        {!!error && <Text style={styles.error}>{error}</Text>}
       </View>
     </SafeAreaView>
   );

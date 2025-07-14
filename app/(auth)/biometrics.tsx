@@ -1,6 +1,5 @@
-import { StyleSheet, View, Image, Pressable } from "react-native";
+import { StyleSheet, View, Image, Pressable, Text } from "react-native";
 import React from "react";
-import { ThemedText } from "@/components/ThemedText";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
@@ -19,19 +18,17 @@ const Biometrics = () => {
           style={styles.icon}
           resizeMode="contain"
         />
-        <ThemedText style={styles.title}>Set up Biometrics</ThemedText>
-        <ThemedText style={styles.subtitle}>
+        <Text style={styles.title}>Set up Biometrics</Text>
+        <Text style={styles.subtitle}>
           Add an extra security layer to you secure your account
-        </ThemedText>
+        </Text>
       </View>
       <View style={styles.footer}>
         <Pressable style={styles.buttonPrimary} onPress={() => {}}>
-          <ThemedText style={styles.buttonPrimaryText}>Continue</ThemedText>
+          <Text style={styles.buttonPrimaryText}>Continue</Text>
         </Pressable>
         <Pressable style={styles.buttonSecondary} onPress={() => {}}>
-          <ThemedText style={styles.buttonSecondaryText}>
-            Skip for now
-          </ThemedText>
+          <Text style={styles.buttonSecondaryText}>Skip for now</Text>
         </Pressable>
       </View>
     </SafeAreaView>

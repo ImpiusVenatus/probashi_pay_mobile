@@ -12,7 +12,7 @@ const AuthLayout = () => {
       }}
     >
       <Stack.Screen name="login" />
-      <Stack.Screen name="create-account" />
+      <Stack.Screen name="enter-email" />
       <Stack.Screen name="enter-otp" />
       <Stack.Screen name="enter-name" />
       <Stack.Screen name="enter-phone" />

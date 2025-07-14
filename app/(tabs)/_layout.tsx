@@ -1,9 +1,8 @@
 import { Tabs } from "expo-router";
 import React from "react";
 import { Platform } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
-import { HapticTab } from "@/components/HapticTab";
-import { IconSymbol } from "@/components/ui/IconSymbol";
 import TabBarBackground from "@/components/ui/TabBarBackground";
 import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
@@ -16,7 +15,7 @@ export default function TabLayout() {
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
         headerShown: false,
-        tabBarButton: HapticTab,
+        // tabBarButton: () => null,
         tabBarBackground: TabBarBackground,
         tabBarStyle: Platform.select({
           ios: {
@@ -28,20 +27,38 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="index"
+        name="home"
         options={{
           title: "Home",
           tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="house.fill" color={color} />
+            <Ionicons name="home" size={28} color={color} />
           ),
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="card"
         options={{
-          title: "Explore",
+          title: "Card",
           tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="paperplane.fill" color={color} />
+            <Ionicons name="card" size={28} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="features"
+        options={{
+          title: "Features",
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="grid" size={28} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="recipients"
+        options={{
+          title: "Recipients",
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="people" size={28} color={color} />
           ),
         }}
       />

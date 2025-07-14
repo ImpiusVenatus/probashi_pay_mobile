@@ -1,6 +1,5 @@
-import { StyleSheet, View, TextInput, Pressable } from "react-native";
+import { StyleSheet, View, TextInput, Pressable, Text } from "react-native";
 import React, { useState } from "react";
-import { ThemedText } from "@/components/ThemedText";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
@@ -36,13 +35,13 @@ const Password = () => {
       </View>
 
       <View style={styles.content}>
-        <ThemedText style={styles.title}>Create a password</ThemedText>
-        <ThemedText style={styles.subtitle}>
+        <Text style={styles.title}>Create a password</Text>
+        <Text style={styles.subtitle}>
           This will be required for subsequent login on new devices
-        </ThemedText>
+        </Text>
 
         <View style={styles.form}>
-          <ThemedText style={styles.label}>Password</ThemedText>
+          <Text style={styles.label}>Password</Text>
           <TextInput
             style={styles.input}
             placeholder="Create a secure combination"
@@ -53,19 +52,19 @@ const Password = () => {
             autoCapitalize="none"
             onBlur={() => setTouched(true)}
           />
-          <ThemedText style={styles.helper}>
+          <Text style={styles.helper}>
             Minimum 8 alphanumeric and special characters
-          </ThemedText>
+          </Text>
           {touched && !isPasswordValid && (
-            <ThemedText style={styles.error}>
+            <Text style={styles.error}>
               Password must be at least 8 characters and include a number,
               letter, and special character.
-            </ThemedText>
+            </Text>
           )}
 
-          <ThemedText style={[styles.label, { marginTop: 24 }]}>
+          <Text style={[styles.label, { marginTop: 24 }]}>
             Confirm password
-          </ThemedText>
+          </Text>
           <TextInput
             style={styles.input}
             placeholder="Enter password again"
@@ -77,9 +76,7 @@ const Password = () => {
             onBlur={() => setTouched(true)}
           />
           {touched && !isMatch && (
-            <ThemedText style={styles.error}>
-              Passwords do not match.
-            </ThemedText>
+            <Text style={styles.error}>Passwords do not match.</Text>
           )}
         </View>
       </View>
@@ -90,7 +87,7 @@ const Password = () => {
           onPress={handleCreateAccount}
           disabled={!canSubmit}
         >
-          <ThemedText style={styles.buttonText}>Create my account</ThemedText>
+          <Text style={styles.buttonText}>Create my account</Text>
         </Pressable>
       </View>
     </SafeAreaView>

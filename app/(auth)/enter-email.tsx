@@ -1,9 +1,14 @@
-import { StyleSheet, View, TextInput, Pressable } from "react-native";
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  Pressable,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 import React, { useState } from "react";
-import { ThemedText } from "@/components/ThemedText";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { router } from "expo-router";
-import { Link } from "expo-router";
+import { router, Link } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 
 const CreateAccount = () => {
@@ -27,13 +32,13 @@ const CreateAccount = () => {
       </View>
 
       <View style={styles.content}>
-        <ThemedText style={styles.title}>Enter your email address</ThemedText>
-        <ThemedText style={styles.subtitle}>
+        <Text style={styles.title}>Enter your email address</Text>
+        <Text style={styles.subtitle}>
           Your email address will be used to verify your account.
-        </ThemedText>
+        </Text>
 
         <View style={styles.form}>
-          <ThemedText style={styles.label}>Email Address</ThemedText>
+          <Text style={styles.label}>Email Address</Text>
           <TextInput
             style={styles.input}
             placeholder="Enter your email address"
@@ -45,11 +50,14 @@ const CreateAccount = () => {
           />
         </View>
 
-        <Link href="/(auth)/login" style={styles.loginLink}>
-          <ThemedText style={styles.loginText}>
-            Already a user? Log in
-          </ThemedText>
-        </Link>
+        <View style={styles.loginContainer}>
+          <Text style={styles.loginText}>Already a user?</Text>
+          <Link href="/(auth)/login" asChild>
+            <TouchableOpacity style={styles.loginButton}>
+              <Text style={styles.loginButtonText}>Log in</Text>
+            </TouchableOpacity>
+          </Link>
+        </View>
       </View>
 
       <View style={styles.footer}>
@@ -58,7 +66,7 @@ const CreateAccount = () => {
           onPress={handleNext}
           disabled={!email}
         >
-          <ThemedText style={styles.buttonText}>Next</ThemedText>
+          <Text style={styles.buttonText}>Next</Text>
         </Pressable>
       </View>
     </SafeAreaView>
@@ -111,12 +119,23 @@ const styles = StyleSheet.create({
     fontSize: 16,
     backgroundColor: "#F8FAFC",
   },
-  loginLink: {
-    alignSelf: "center",
+  loginContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 10,
+  },
+  loginButton: {
+    paddingHorizontal: 8,
+    paddingVertical: 4,
   },
   loginText: {
+    color: "#000000",
+    fontSize: 16,
+  },
+  loginButtonText: {
     color: "#007AFF",
     fontSize: 16,
+    fontWeight: "600",
   },
   footer: {
     padding: 20,

@@ -1,7 +1,6 @@
-import { StyleSheet, View, Dimensions, Pressable } from "react-native";
+import { StyleSheet, View, Dimensions, Pressable, Text } from "react-native";
 import React, { useCallback, useEffect, useState } from "react";
 import { Image } from "expo-image";
-import { ThemedText } from "@/components/ThemedText";
 import Animated, {
   useAnimatedStyle,
   withTiming,
@@ -81,7 +80,7 @@ const Onboarding = () => {
         {slides.map((slide, index) => (
           <View key={index} style={styles.slide}>
             <Image source={slide.image} style={styles.image} />
-            <ThemedText style={styles.title}>{slide.title}</ThemedText>
+            <Text style={styles.title}>{slide.title}</Text>
           </View>
         ))}
       </Animated.View>
@@ -99,15 +98,15 @@ const Onboarding = () => {
       <View style={styles.buttons}>
         <Pressable
           style={styles.button}
-          onPress={() => router.push("/(auth)/create-account")}
+          onPress={() => router.push("/(auth)/enter-email")}
         >
-          <ThemedText style={styles.buttonText}>Create an account</ThemedText>
+          <Text style={styles.buttonText}>Create an account</Text>
         </Pressable>
         <Pressable
           style={[styles.button, styles.loginButton]}
           onPress={() => router.push("/(auth)/login")}
         >
-          <ThemedText style={styles.loginButtonText}>Login</ThemedText>
+          <Text style={styles.loginButtonText}>Login</Text>
         </Pressable>
       </View>
     </SafeAreaView>

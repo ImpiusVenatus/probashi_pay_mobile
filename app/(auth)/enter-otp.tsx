@@ -1,6 +1,5 @@
-import { StyleSheet, View, TextInput, Pressable } from "react-native";
+import { StyleSheet, View, TextInput, Pressable, Text } from "react-native";
 import React, { useState, useRef, useEffect } from "react";
-import { ThemedText } from "@/components/ThemedText";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router, useLocalSearchParams } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
@@ -8,12 +7,16 @@ import { Ionicons } from "@expo/vector-icons";
 const OTP_LENGTH = 6;
 
 const EnterOTP = () => {
-  const { email } = useLocalSearchParams();
+  const { email, phone, firstName, lastName } = useLocalSearchParams();
   const [otp, setOtp] = useState(Array(OTP_LENGTH).fill(""));
   const inputRefs = useRef<Array<TextInput | null>>(
     Array(OTP_LENGTH).fill(null)
   );
   const [timer, setTimer] = useState(300); // 5 minutes in seconds
+
+  // Determine if this is email or phone flow
+  const isEmailFlow = !!email;
+  const contactMethod = isEmailFlow ? email : phone;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -50,7 +53,13 @@ const EnterOTP = () => {
 
   const handleVerify = () => {
     if (isOtpComplete) {
-      router.push("/enter-name");
+      if (isEmailFlow) {
+        // Email flow: go to enter-name
+        router.push("/enter-name");
+      } else {
+        // Phone flow: go to home (tabs)
+        router.push("/(tabs)/home");
+      }
     }
   };
 
@@ -63,11 +72,11 @@ const EnterOTP = () => {
       </View>
 
       <View style={styles.content}>
-        <ThemedText style={styles.title}>Verify your account</ThemedText>
-        <ThemedText style={styles.subtitle}>
+        <Text style={styles.title}>Verify your account</Text>
+        <Text style={styles.subtitle}>
           We sent you 6 digit code to{"\n"}
-          {email}
-        </ThemedText>
+          {contactMethod}
+        </Text>
 
         <View style={styles.otpContainer}>
           {otp.map((digit, index) => (
@@ -86,9 +95,7 @@ const EnterOTP = () => {
           ))}
         </View>
 
-        <ThemedText style={styles.timer}>
-          Send code in {formatTime(timer)}
-        </ThemedText>
+        <Text style={styles.timer}>Send code in {formatTime(timer)}</Text>
       </View>
 
       <View style={styles.footer}>
@@ -97,7 +104,7 @@ const EnterOTP = () => {
           onPress={handleVerify}
           disabled={!isOtpComplete}
         >
-          <ThemedText style={styles.buttonText}>Verify</ThemedText>
+          <Text style={styles.buttonText}>Verify</Text>
         </Pressable>
       </View>
     </SafeAreaView>

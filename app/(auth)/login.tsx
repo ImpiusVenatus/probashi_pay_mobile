@@ -47,9 +47,14 @@ const Login = () => {
             />
           </View>
 
-          <Link href="/(auth)/create-account" style={styles.signUpText}>
-            Don&apos;t have an account? Sign Up
-          </Link>
+          <View style={styles.signUpContainer}>
+            <Text style={styles.signUpText}>Don&apos;t have an account?</Text>
+            <Link href="/(auth)/enter-email" asChild>
+              <TouchableOpacity style={styles.signUpButton}>
+                <Text style={styles.signUpButtonText}>Sign Up</Text>
+              </TouchableOpacity>
+            </Link>
+          </View>
         </View>
       </View>
       <View style={styles.footer}>
@@ -107,11 +112,23 @@ const styles = StyleSheet.create({
     fontSize: 16,
     backgroundColor: "#F8FAFC",
   },
-  signUpText: {
-    textAlign: "left",
-    color: "#000",
-    fontSize: 16,
+  signUpContainer: {
+    flexDirection: "row",
+    alignItems: "center",
     marginTop: 10,
+  },
+  signUpText: {
+    color: "#666",
+    fontSize: 16,
+  },
+  signUpButton: {
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+  },
+  signUpButtonText: {
+    color: "#007AFF",
+    fontSize: 16,
+    fontWeight: "600",
   },
   footer: {
     paddingHorizontal: 20,

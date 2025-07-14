@@ -1,6 +1,5 @@
-import { StyleSheet, View, TextInput, Pressable } from "react-native";
+import { StyleSheet, View, TextInput, Pressable, Text } from "react-native";
 import React, { useState } from "react";
-import { ThemedText } from "@/components/ThemedText";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
@@ -24,18 +23,18 @@ const EnterName = () => {
         <Pressable onPress={() => router.back()} style={styles.backButton}>
           <Ionicons name="arrow-back" size={24} color="black" />
         </Pressable>
-        <ThemedText style={styles.step}>1/4</ThemedText>
+        <Text style={styles.step}>1/4</Text>
       </View>
 
       <View style={styles.content}>
-        <ThemedText style={styles.title}>What&apos;s your name</ThemedText>
-        <ThemedText style={styles.subtitle}>
+        <Text style={styles.title}>What&apos;s your name</Text>
+        <Text style={styles.subtitle}>
           Your official name is important to create an account
-        </ThemedText>
+        </Text>
 
         <View style={styles.form}>
           <View style={styles.inputContainer}>
-            <ThemedText style={styles.label}>First Name</ThemedText>
+            <Text style={styles.label}>First Name</Text>
             <TextInput
               style={styles.input}
               placeholder="Enter your first name"
@@ -47,7 +46,7 @@ const EnterName = () => {
           </View>
 
           <View style={styles.inputContainer}>
-            <ThemedText style={styles.label}>Last Name</ThemedText>
+            <Text style={styles.label}>Last Name</Text>
             <TextInput
               style={styles.input}
               placeholder="Enter your last name"
@@ -69,7 +68,7 @@ const EnterName = () => {
           onPress={handleNext}
           disabled={!(firstName && lastName)}
         >
-          <ThemedText style={styles.buttonText}>Next</ThemedText>
+          <Text style={styles.buttonText}>Next</Text>
         </Pressable>
       </View>
     </SafeAreaView>

@@ -1,13 +1,5 @@
-import {
-  StyleSheet,
-  View,
-  TextInput,
-  Pressable,
-  Image,
-  Text,
-} from "react-native";
+import { StyleSheet, View, TextInput, Pressable, Text } from "react-native";
 import React, { useState } from "react";
-import { ThemedText } from "@/components/ThemedText";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router, useLocalSearchParams } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
@@ -37,13 +29,13 @@ const EnterPhone = () => {
       </View>
 
       <View style={styles.content}>
-        <ThemedText style={styles.title}>Enter your phone number</ThemedText>
-        <ThemedText style={styles.subtitle}>
+        <Text style={styles.title}>Enter your phone number</Text>
+        <Text style={styles.subtitle}>
           Your phone will be used to verify your account.
-        </ThemedText>
+        </Text>
 
         <View style={styles.form}>
-          <ThemedText style={styles.label}>Phone Number</ThemedText>
+          <Text style={styles.label}>Phone Number</Text>
           <View style={styles.phoneInputContainer}>
             <Pressable style={styles.countryCode} onPress={openSheet}>
               {/* You can use a flag image if you have it, otherwise show code */}
@@ -61,10 +53,6 @@ const EnterPhone = () => {
             />
           </View>
         </View>
-
-        <Pressable onPress={() => router.push("/create-account")}>
-          <ThemedText style={styles.emailLink}>Use email instead</ThemedText>
-        </Pressable>
       </View>
 
       <View style={styles.footer}>
@@ -73,7 +61,7 @@ const EnterPhone = () => {
           onPress={handleNext}
           disabled={!phone}
         >
-          <ThemedText style={styles.buttonText}>Next</ThemedText>
+          <Text style={styles.buttonText}>Next</Text>
         </Pressable>
       </View>
       <SelectCountryCodeSheet />
