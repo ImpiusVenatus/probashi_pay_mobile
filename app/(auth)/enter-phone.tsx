@@ -142,11 +142,9 @@ const styles = StyleSheet.create({
   },
   footer: {
     padding: 20,
-    borderTopWidth: 1,
-    borderTopColor: "#E2E8F0",
   },
   button: {
-    backgroundColor: "#007AFF",
+    backgroundColor: "#0EA1D3",
     padding: 16,
     borderRadius: 999,
     alignItems: "center",

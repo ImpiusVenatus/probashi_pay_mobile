@@ -31,7 +31,7 @@ extensions.configure(com.facebook.react.ReactSettingsExtension) { ex ->
 }
 expoAutolinking.useExpoModules()
 
-rootProject.name = 'Probashi Pay'
+rootProject.name = 'Probashi Pay Dev'
 
 expoAutolinking.useExpoVersionCatalog()
 

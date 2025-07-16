@@ -9,7 +9,7 @@ const Biometrics = () => {
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Pressable onPress={() => router.back()} style={styles.backButton}>
-          <Ionicons name="arrow-back" size={24} color="#1A2B27" />
+          <Ionicons name="arrow-back" size={24} color="#00A3D1" />
         </Pressable>
       </View>
       <View style={styles.content}>
@@ -24,10 +24,20 @@ const Biometrics = () => {
         </Text>
       </View>
       <View style={styles.footer}>
-        <Pressable style={styles.buttonPrimary} onPress={() => {}}>
+        <Pressable
+          style={styles.buttonPrimary}
+          onPress={() => {
+            router.push("/(auth)/face-scan");
+          }}
+        >
           <Text style={styles.buttonPrimaryText}>Continue</Text>
         </Pressable>
-        <Pressable style={styles.buttonSecondary} onPress={() => {}}>
+        <Pressable
+          style={styles.buttonSecondary}
+          onPress={() => {
+            router.push("/(tabs)/home");
+          }}
+        >
           <Text style={styles.buttonSecondaryText}>Skip for now</Text>
         </Pressable>
       </View>
@@ -81,7 +91,7 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   buttonPrimary: {
-    backgroundColor: "#1A2B27",
+    backgroundColor: "#00A3D1",
     borderRadius: 999,
     paddingVertical: 16,
     alignItems: "center",
@@ -94,14 +104,14 @@ const styles = StyleSheet.create({
   },
   buttonSecondary: {
     borderWidth: 1,
-    borderColor: "#1A2B27",
+    borderColor: "#00A3D1",
     borderRadius: 999,
     paddingVertical: 16,
     alignItems: "center",
     backgroundColor: "#fff",
   },
   buttonSecondaryText: {
-    color: "#1A2B27",
+    color: "#00A3D1",
     fontSize: 18,
     fontWeight: "600",
   },

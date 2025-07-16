@@ -7,15 +7,14 @@ import { Ionicons } from "@expo/vector-icons";
 const OTP_LENGTH = 6;
 
 const EnterOTP = () => {
-  const { email, phone, firstName, lastName } = useLocalSearchParams();
+  const { email, phone, flow } = useLocalSearchParams();
   const [otp, setOtp] = useState(Array(OTP_LENGTH).fill(""));
-  const inputRefs = useRef<Array<TextInput | null>>(
-    Array(OTP_LENGTH).fill(null)
-  );
+  const inputRefs = useRef<(TextInput | null)[]>(Array(OTP_LENGTH).fill(null));
   const [timer, setTimer] = useState(300); // 5 minutes in seconds
 
   // Determine if this is email or phone flow
   const isEmailFlow = !!email;
+  const isPasswordResetFlow = flow === "password-reset";
   const contactMethod = isEmailFlow ? email : phone;
 
   useEffect(() => {
@@ -53,12 +52,18 @@ const EnterOTP = () => {
 
   const handleVerify = () => {
     if (isOtpComplete) {
-      if (isEmailFlow) {
+      if (isPasswordResetFlow) {
+        // Password reset flow: go to new-password
+        router.push({
+          pathname: "/(auth)/new-password",
+          params: { email },
+        });
+      } else if (isEmailFlow) {
         // Email flow: go to enter-name
         router.push("/enter-name");
       } else {
         // Phone flow: go to home (tabs)
-        router.push("/(tabs)/home");
+        router.push("/(auth)/biometrics");
       }
     }
   };
@@ -72,7 +77,11 @@ const EnterOTP = () => {
       </View>
 
       <View style={styles.content}>
-        <Text style={styles.title}>Verify your account</Text>
+        <Text style={styles.title}>
+          {isEmailFlow
+            ? "Verify your email address"
+            : "Verify your phone number"}
+        </Text>
         <Text style={styles.subtitle}>
           We sent you 6 digit code to{"\n"}
           {contactMethod}
@@ -157,17 +166,15 @@ const styles = StyleSheet.create({
     backgroundColor: "#F8FAFC",
   },
   timer: {
-    textAlign: "center",
+    textAlign: "left",
     color: "#666",
     fontSize: 16,
   },
   footer: {
     padding: 20,
-    borderTopWidth: 1,
-    borderTopColor: "#E2E8F0",
   },
   button: {
-    backgroundColor: "#007AFF",
+    backgroundColor: "#0EA1D3",
     padding: 16,
     borderRadius: 999,
     alignItems: "center",

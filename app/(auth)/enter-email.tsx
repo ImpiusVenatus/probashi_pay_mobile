@@ -9,7 +9,6 @@ import {
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router, Link } from "expo-router";
-import { Ionicons } from "@expo/vector-icons";
 
 const CreateAccount = () => {
   const [email, setEmail] = useState("");
@@ -25,12 +24,6 @@ const CreateAccount = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Pressable onPress={() => router.back()} style={styles.backButton}>
-          <Ionicons name="arrow-back" size={24} color="black" />
-        </Pressable>
-      </View>
-
       <View style={styles.content}>
         <Text style={styles.title}>Enter your email address</Text>
         <Text style={styles.subtitle}>
@@ -49,7 +42,9 @@ const CreateAccount = () => {
             autoComplete="email"
           />
         </View>
+      </View>
 
+      <View style={styles.footer}>
         <View style={styles.loginContainer}>
           <Text style={styles.loginText}>Already a user?</Text>
           <Link href="/(auth)/login" asChild>
@@ -58,9 +53,6 @@ const CreateAccount = () => {
             </TouchableOpacity>
           </Link>
         </View>
-      </View>
-
-      <View style={styles.footer}>
         <Pressable
           style={[styles.button, !email && styles.buttonDisabled]}
           onPress={handleNext}
@@ -89,7 +81,8 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingTop: 100,
   },
   title: {
     fontSize: 32,
@@ -122,7 +115,9 @@ const styles = StyleSheet.create({
   loginContainer: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
     marginTop: 10,
+    marginBottom: 16, // Added spacing below
   },
   loginButton: {
     paddingHorizontal: 8,
@@ -133,17 +128,15 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   loginButtonText: {
-    color: "#007AFF",
+    color: "#0EA1D3",
     fontSize: 16,
     fontWeight: "600",
   },
   footer: {
     padding: 20,
-    borderTopWidth: 1,
-    borderTopColor: "#E2E8F0",
   },
   button: {
-    backgroundColor: "#007AFF",
+    backgroundColor: "#0EA1D3",
     padding: 16,
     borderRadius: 999,
     alignItems: "center",

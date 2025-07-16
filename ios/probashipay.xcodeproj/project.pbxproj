@@ -257,8 +257,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.buckyy.probashipay";
-				PRODUCT_NAME = "ProbashiPay";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.buckyy.probashipay.dev";
+				PRODUCT_NAME = "ProbashiPayDev";
 				SWIFT_OBJC_BRIDGING_HEADER = "probashipay/probashipay-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -286,8 +286,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.buckyy.probashipay";
-				PRODUCT_NAME = "ProbashiPay";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.buckyy.probashipay.dev";
+				PRODUCT_NAME = "ProbashiPayDev";
 				SWIFT_OBJC_BRIDGING_HEADER = "probashipay/probashipay-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";

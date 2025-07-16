@@ -5,52 +5,71 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
+import { useSendMoneyStore } from "@/stores/useSendMoneyStore";
 
 const SendMoney = () => {
   const router = useRouter();
+  const [beneficiary, setBeneficiary] = useState("mufratMahbub879");
+  const [description, setDescription] = useState(
+    "Stay Well , Buy Gifts for your Sister"
+  );
+  const setBeneficiaryStore = useSendMoneyStore((s) => s.setBeneficiary);
+
   return (
     <View style={styles.container}>
-      {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity>
-          <Ionicons name="arrow-back" size={28} color="#222" />
-        </TouchableOpacity>
-        <Text style={styles.title}>Send Money</Text>
+      {/* Main Content */}
+      <View style={{ flex: 1 }}>
+        {/* Header */}
+        <View style={styles.header}>
+          <TouchableOpacity onPress={() => router.back()}>
+            <Ionicons name="arrow-back" size={28} color="#222" />
+          </TouchableOpacity>
+          <Text style={styles.title}>Send Money</Text>
+        </View>
+
+        {/* Transfer to (Beneficiary) */}
+        <Text style={styles.label}>Transfer to (Beneficiary)</Text>
+        <TextInput
+          style={styles.input}
+          value={beneficiary}
+          onChangeText={(text) => {
+            setBeneficiary(text);
+            setBeneficiaryStore(text);
+          }}
+          placeholder="Enter beneficiary username"
+        />
+        <Text style={styles.accountName}>Account name</Text>
+
+        {/* Description */}
+        <Text style={[styles.label, { marginTop: 18 }]}>Description</Text>
+        <TextInput
+          style={[styles.input, { height: 56 }]}
+          value={description}
+          onChangeText={setDescription}
+          placeholder="Enter description"
+          multiline
+        />
       </View>
 
-      {/* Transfer to (Beneficiary) */}
-      <Text style={styles.label}>Transfer to (Beneficiary)</Text>
-      <TextInput
-        style={styles.input}
-        value="mufratMahbub879"
-        editable={false}
-      />
-      <Text style={styles.accountName}>Account name</Text>
+      {/* Bottom Actions */}
+      <View style={styles.bottomActions}>
+        <TouchableOpacity
+          style={styles.addBankLink}
+          onPress={() => router.push("/(send-money)/send-to-bank")}
+        >
+          <Text style={styles.addBankText}>Not Saved? Add A bank Account</Text>
+        </TouchableOpacity>
 
-      {/* Description */}
-      <Text style={[styles.label, { marginTop: 18 }]}>Description</Text>
-      <TextInput
-        style={[styles.input, { height: 56 }]}
-        value="Stay Well , Buy Gifts for your Sister"
-        editable={false}
-        multiline
-      />
-
-      {/* Add bank account link */}
-      <TouchableOpacity
-        style={styles.addBankLink}
-        onPress={() => router.push("/(send-money)/send-to-bank")}
-      >
-        <Text style={styles.addBankText}>Not Saved? Add A bank Account</Text>
-      </TouchableOpacity>
-
-      {/* Send money button */}
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>Send money</Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => router.push("/(send-money)/select-account")}
+        >
+          <Text style={styles.buttonText}>Send money</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -62,17 +81,17 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     paddingHorizontal: 24,
-    paddingTop: 48,
+    paddingTop: 100,
   },
   header: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 24,
+    flexDirection: "column",
+    alignItems: "flex-start",
+    gap: 12,
+    marginBottom: 12,
   },
   title: {
     fontSize: 28,
     fontWeight: "700",
-    marginLeft: 12,
     color: "#111",
   },
   label: {
@@ -97,7 +116,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#444",
     marginBottom: 8,
-    marginTop: -22,
+    marginTop: 0,
     marginRight: 2,
   },
   addBankLink: {
@@ -132,5 +151,10 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 18,
     fontWeight: "600",
+  },
+  bottomActions: {
+    // New style for bottom actions
+    paddingBottom: 24,
+    backgroundColor: "#fff",
   },
 });

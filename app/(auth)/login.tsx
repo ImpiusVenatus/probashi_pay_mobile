@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const Login = () => {
@@ -45,21 +45,31 @@ const Login = () => {
               secureTextEntry
               autoCapitalize="none"
             />
-          </View>
-
-          <View style={styles.signUpContainer}>
-            <Text style={styles.signUpText}>Don&apos;t have an account?</Text>
-            <Link href="/(auth)/enter-email" asChild>
-              <TouchableOpacity style={styles.signUpButton}>
-                <Text style={styles.signUpButtonText}>Sign Up</Text>
-              </TouchableOpacity>
-            </Link>
+            <TouchableOpacity
+              style={styles.forgotPasswordButton}
+              onPress={() => router.push("/(auth)/forgot-password")}
+            >
+              <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.button} onPress={() => {}}>
-          <Text style={styles.buttonText}>Next</Text>
+        <View style={styles.signUpContainer}>
+          <Text style={styles.signUpText}>Don&apos;t have an account?</Text>
+          <Link href="/(auth)/enter-email" asChild>
+            <TouchableOpacity style={styles.signUpButton}>
+              <Text style={styles.signUpButtonText}>Sign Up</Text>
+            </TouchableOpacity>
+          </Link>
+        </View>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            router.push("/(tabs)/home");
+          }}
+        >
+          <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -112,10 +122,20 @@ const styles = StyleSheet.create({
     fontSize: 16,
     backgroundColor: "#F8FAFC",
   },
+  forgotPasswordButton: {
+    alignSelf: "flex-end",
+    paddingVertical: 4,
+  },
+  forgotPasswordText: {
+    color: "#0EA1D3",
+    fontSize: 14,
+    fontWeight: "500",
+  },
   signUpContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 10,
+    justifyContent: "center",
+    marginBottom: 20,
   },
   signUpText: {
     color: "#666",
@@ -126,7 +146,7 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
   },
   signUpButtonText: {
-    color: "#007AFF",
+    color: "#0EA1D3",
     fontSize: 16,
     fontWeight: "600",
   },
@@ -136,7 +156,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   button: {
-    backgroundColor: "#007AFF",
+    backgroundColor: "#0EA1D3",
     height: 56,
     borderRadius: 100,
     justifyContent: "center",

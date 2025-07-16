@@ -142,10 +142,9 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   content: {
-    flex: 1,
     alignItems: "center",
-    justifyContent: "center",
     padding: 20,
+    marginTop: 32,
   },
   icon: {
     width: 64,

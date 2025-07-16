@@ -23,7 +23,6 @@ const EnterName = () => {
         <Pressable onPress={() => router.back()} style={styles.backButton}>
           <Ionicons name="arrow-back" size={24} color="black" />
         </Pressable>
-        <Text style={styles.step}>1/4</Text>
       </View>
 
       <View style={styles.content}>
@@ -132,11 +131,9 @@ const styles = StyleSheet.create({
   },
   footer: {
     padding: 20,
-    borderTopWidth: 1,
-    borderTopColor: "#E2E8F0",
   },
   button: {
-    backgroundColor: "#007AFF",
+    backgroundColor: "#0EA1D3",
     padding: 16,
     borderRadius: 999,
     alignItems: "center",

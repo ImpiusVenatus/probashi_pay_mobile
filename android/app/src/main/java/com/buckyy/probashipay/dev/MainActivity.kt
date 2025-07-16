@@ -1,4 +1,4 @@
-package com.buckyy.probashipay
+package com.buckyy.probashipay.dev
 import expo.modules.splashscreen.SplashScreenManager
 
 import android.os.Build

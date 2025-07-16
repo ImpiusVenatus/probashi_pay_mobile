@@ -7,6 +7,7 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
 
 const SendToBank = () => {
   const [checked, setChecked] = useState(false);
@@ -14,7 +15,7 @@ const SendToBank = () => {
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => router.back()}>
           <Ionicons name="arrow-back" size={28} color="#222" />
         </TouchableOpacity>
         <Text style={styles.title}>Send to bank</Text>
@@ -69,17 +70,17 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     paddingHorizontal: 24,
-    paddingTop: 48,
+    paddingTop: 100,
   },
   header: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 24,
+    flexDirection: "column",
+    alignItems: "flex-start",
+    gap: 12,
+    marginBottom: 12,
   },
   title: {
     fontSize: 28,
     fontWeight: "700",
-    marginLeft: 12,
     color: "#111",
   },
   label: {
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#444",
     marginBottom: 8,
-    marginTop: -22,
+    marginTop: 0,
     marginRight: 2,
   },
   checkboxRow: {
