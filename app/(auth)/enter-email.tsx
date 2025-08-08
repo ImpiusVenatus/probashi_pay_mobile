@@ -12,13 +12,44 @@ import { router, Link } from "expo-router";
 
 const CreateAccount = () => {
   const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [isEmailValid, setIsEmailValid] = useState(false);
+
+  // Email validation function
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const handleEmailChange = (text: string) => {
+    setEmail(text);
+
+    // Clear error when user starts typing
+    if (emailError) {
+      setEmailError("");
+    }
+
+    // Validate email format
+    if (text.trim() === "") {
+      setIsEmailValid(false);
+      setEmailError("");
+    } else if (!validateEmail(text)) {
+      setIsEmailValid(false);
+      setEmailError("Please enter a valid email address");
+    } else {
+      setIsEmailValid(true);
+      setEmailError("");
+    }
+  };
 
   const handleNext = () => {
-    if (email) {
+    if (email && isEmailValid) {
       router.push({
         pathname: "/enter-otp",
         params: { email },
       });
+    } else if (email && !isEmailValid) {
+      setEmailError("Please enter a valid email address");
     }
   };
 
@@ -33,14 +64,21 @@ const CreateAccount = () => {
         <View style={styles.form}>
           <Text style={styles.label}>Email Address</Text>
           <TextInput
-            style={styles.input}
+            style={[
+              styles.input,
+              emailError ? styles.inputError : null,
+              isEmailValid ? styles.inputValid : null,
+            ]}
             placeholder="Enter your email address"
             value={email}
-            onChangeText={setEmail}
+            onChangeText={handleEmailChange}
             keyboardType="email-address"
             autoCapitalize="none"
             autoComplete="email"
           />
+          {emailError ? (
+            <Text style={styles.errorText}>{emailError}</Text>
+          ) : null}
         </View>
       </View>
 
@@ -54,9 +92,12 @@ const CreateAccount = () => {
           </Link>
         </View>
         <Pressable
-          style={[styles.button, !email && styles.buttonDisabled]}
+          style={[
+            styles.button,
+            (!email || !isEmailValid) && styles.buttonDisabled,
+          ]}
           onPress={handleNext}
-          disabled={!email}
+          disabled={!email || !isEmailValid}
         >
           <Text style={styles.buttonText}>Next</Text>
         </Pressable>
@@ -111,6 +152,20 @@ const styles = StyleSheet.create({
     padding: 16,
     fontSize: 16,
     backgroundColor: "#F8FAFC",
+  },
+  inputError: {
+    borderColor: "#EF4444",
+    backgroundColor: "#FEF2F2",
+  },
+  inputValid: {
+    borderColor: "#10B981",
+    backgroundColor: "#F0FDF4",
+  },
+  errorText: {
+    color: "#EF4444",
+    fontSize: 14,
+    marginTop: 4,
+    marginLeft: 4,
   },
   loginContainer: {
     flexDirection: "row",
