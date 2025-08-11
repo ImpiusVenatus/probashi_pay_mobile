@@ -1,14 +1,14 @@
 import { useState } from "react";
 import {
-  CreateAccountFormData,
+  // CreateAccountFormData,
   SignupEmailFormData,
   OTPFormData,
   UserCreateData,
 } from "@/schemas/auth";
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 import { AUTH_ENDPOINTS } from "@/config/api";
 import { useAuth } from "@/contexts/AuthContext";
-import { storeUserDefaultCurrency } from "@/utils/storage";
+// import { storeUserDefaultCurrency } from "@/utils/storage";
 
 export const useSignUp = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -20,9 +20,10 @@ export const useSignUp = () => {
       setIsLoading(true);
       setError(null);
 
-      const response = await axios.post(`${AUTH_ENDPOINTS.CHECK_EMAIL}`, data);
+      const response = await axios.post(`${AUTH_ENDPOINTS.SEND_OTP}`, data);
 
       // If we get here, it means the email is unique and OTP was sent
+      console.log("Check email response:", response);
       return true;
     } catch (err: any) {
       console.error("Check email error:", {
@@ -80,7 +81,7 @@ export const useSignUp = () => {
       );
       return response.status === 200;
     } catch (err) {
-      if (axios.isAxiosError(err)) {
+      if (isAxiosError(err)) {
         if (err.response?.status === 400) {
           setError("Invalid OTP");
         } else if (err.response?.status === 500) {
@@ -111,7 +112,7 @@ export const useSignUp = () => {
           response.data.refresh_token
         );
         // Store user's default currency
-        storeUserDefaultCurrency(data.currency);
+        // storeUserDefaultCurrency(data.currency);
       }
 
       return true;

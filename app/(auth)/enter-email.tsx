@@ -5,15 +5,18 @@ import {
   Pressable,
   Text,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router, Link } from "expo-router";
+import { useSignUp } from "@/hooks/auth/auth/useSignUp";
 
 const CreateAccount = () => {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
   const [isEmailValid, setIsEmailValid] = useState(false);
+  const { checkEmailUnique, isLoading, error } = useSignUp();
 
   // Email validation function
   const validateEmail = (email: string) => {
@@ -42,16 +45,27 @@ const CreateAccount = () => {
     }
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (email && isEmailValid) {
-      router.push({
-        pathname: "/enter-otp",
-        params: { email },
-      });
+      try {
+        const success = await checkEmailUnique({ email });
+        if (success) {
+          router.push({
+            pathname: "/enter-otp",
+            params: { email },
+          });
+        }
+      } catch (err) {
+        // Error is already handled by the hook
+        console.error("Failed to check email:", err);
+      }
     } else if (email && !isEmailValid) {
       setEmailError("Please enter a valid email address");
     }
   };
+
+  // Display error from the hook if any
+  const displayError = error || emailError;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -66,7 +80,7 @@ const CreateAccount = () => {
           <TextInput
             style={[
               styles.input,
-              emailError ? styles.inputError : null,
+              displayError ? styles.inputError : null,
               isEmailValid ? styles.inputValid : null,
             ]}
             placeholder="Enter your email address"
@@ -76,8 +90,8 @@ const CreateAccount = () => {
             autoCapitalize="none"
             autoComplete="email"
           />
-          {emailError ? (
-            <Text style={styles.errorText}>{emailError}</Text>
+          {displayError ? (
+            <Text style={styles.errorText}>{displayError}</Text>
           ) : null}
         </View>
       </View>
@@ -94,12 +108,16 @@ const CreateAccount = () => {
         <Pressable
           style={[
             styles.button,
-            (!email || !isEmailValid) && styles.buttonDisabled,
+            (!email || !isEmailValid || isLoading) && styles.buttonDisabled,
           ]}
           onPress={handleNext}
-          disabled={!email || !isEmailValid}
+          disabled={!email || !isEmailValid || isLoading}
         >
-          <Text style={styles.buttonText}>Next</Text>
+          {isLoading ? (
+            <ActivityIndicator color="#fff" size="small" />
+          ) : (
+            <Text style={styles.buttonText}>Next</Text>
+          )}
         </Pressable>
       </View>
     </SafeAreaView>

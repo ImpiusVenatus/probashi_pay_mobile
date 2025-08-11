@@ -15,6 +15,10 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
 import SelectCurrencySheet from "@/components/SelectCurrencySheet";
+import { AuthProvider } from "@/contexts/AuthContext";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -30,27 +34,31 @@ export default function RootLayout() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <GestureHandlerRootView style={{ flex: 1 }}>
-        <BottomSheetModalProvider>
-          <ThemeProvider
-            value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-          >
-            <Stack
-              screenOptions={{
-                headerShown: false,
-                headerShadowVisible: false,
-                headerBackVisible: false,
-              }}
-            >
-              <Stack.Screen name="index" />
-              <Stack.Screen name="(tabs)" />
-              <Stack.Screen name="(auth)" />
-              <Stack.Screen name="+not-found" />
-            </Stack>
-            <StatusBar style="dark" />
-            <Toast config={toastConfig} position="top" />
-            <SelectCurrencySheet />
-          </ThemeProvider>
-        </BottomSheetModalProvider>
+        <QueryClientProvider client={queryClient}>
+          <AuthProvider>
+            <BottomSheetModalProvider>
+              <ThemeProvider
+                value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+              >
+                <Stack
+                  screenOptions={{
+                    headerShown: false,
+                    headerShadowVisible: false,
+                    headerBackVisible: false,
+                  }}
+                >
+                  <Stack.Screen name="index" />
+                  <Stack.Screen name="(tabs)" />
+                  <Stack.Screen name="(auth)" />
+                  <Stack.Screen name="+not-found" />
+                </Stack>
+                <StatusBar style="dark" />
+                <Toast config={toastConfig} position="top" />
+                <SelectCurrencySheet />
+              </ThemeProvider>
+            </BottomSheetModalProvider>
+          </AuthProvider>
+        </QueryClientProvider>
       </GestureHandlerRootView>
     </SafeAreaView>
   );

@@ -5,7 +5,7 @@ export const AUTH_ENDPOINTS = {
   LOGIN: `${API_URL}/auth/login`,
   LOGOUT: `${API_URL}/auth/logout`,
   SIGNUP: `${API_URL}/auth/register`,
-  CHECK_EMAIL: `${API_URL}/auth/check-email`,
+  SEND_OTP: `${API_URL}/auth/send-otp`,
   RESEND_OTP: `${API_URL}/auth/resend-otp`,
   VERIFY_OTP: `${API_URL}/auth/verify-otp`,
   REFRESH_TOKEN: `${API_URL}/auth/refresh-token`,
